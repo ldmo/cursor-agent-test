@@ -21,14 +21,29 @@ function App() {
     localStorage.setItem('stickyNotes', JSON.stringify(notes));
   }, [notes]);
 
-  // Create a new note
+  // Create a new note with better positioning logic
   const addNote = () => {
+    const isMobile = window.innerWidth <= 768;
+    const noteWidth = isMobile ? 200 : 240;
+    const noteHeight = isMobile ? 160 : 200;
+    
+    // Calculate safe area for note placement
+    const safeMargin = 20;
+    const buttonArea = isMobile ? 80 : 100; // Space for the add button
+    
+    const maxX = window.innerWidth - noteWidth - safeMargin;
+    const maxY = window.innerHeight - noteHeight - buttonArea;
+    
+    // Generate random position within safe area
+    const x = Math.max(safeMargin, Math.random() * maxX);
+    const y = Math.max(120, Math.random() * maxY); // Start below header
+    
     const newNote = {
       id: Date.now(),
       text: '',
-      x: Math.random() * (window.innerWidth - 250),
-      y: Math.random() * (window.innerHeight - 250),
-      color: ['#FFEB3B', '#FF6B6B', '#4ECDC4', '#95E1D3', '#C7CEEA'][Math.floor(Math.random() * 5)]
+      x: x,
+      y: y,
+      color: ['#FFEB3B', '#FF6B6B', '#4ECDC4', '#95E1D3', '#C7CEEA', '#FFB74D', '#81C784', '#F06292'][Math.floor(Math.random() * 8)]
     };
     setNotes([...notes, newNote]);
   };
@@ -60,7 +75,7 @@ function App() {
   return (
     <div className="App">
       <div className="app-header">
-        <h1 className="app-title">My Sticky Notes</h1>
+        <h1 className="app-title">Sticky Notes</h1>
         <SearchBar 
           searchTerm={searchTerm} 
           onSearchChange={setSearchTerm}

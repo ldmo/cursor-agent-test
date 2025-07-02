@@ -1,182 +1,175 @@
 .sticky-note {
   position: absolute;
-  width: 250px;
-  height: 250px;
+  width: 240px;
+  min-height: 200px;
+  max-height: 400px;
   padding: 0;
   background: #FFEB3B;
+  border-radius: 12px;
   box-shadow: 
-    0 0 0 1px rgba(0, 0, 0, 0.1),
-    0 2px 4px rgba(0, 0, 0, 0.1),
-    0 4px 8px rgba(0, 0, 0, 0.1),
-    0 8px 16px rgba(0, 0, 0, 0.1),
-    0 16px 32px rgba(0, 0, 0, 0.15);
-  cursor: move;
-  transition: transform 0.1s ease, box-shadow 0.2s ease;
-  border-radius: 2px;
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  cursor: grab;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
-  transform: rotate(-1deg);
-}
-
-.sticky-note::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: 
-    linear-gradient(
-      135deg,
-      transparent 0%,
-      rgba(255, 255, 255, 0.3) 50%,
-      transparent 100%
-    );
-  pointer-events: none;
-}
-
-.sticky-note::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 30px;
-  height: 30px;
-  background: 
-    linear-gradient(
-      315deg,
-      rgba(0, 0, 0, 0.1) 0%,
-      transparent 50%
-    );
-  border-radius: 0 0 2px 0;
-  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .sticky-note:hover {
-  transform: rotate(0deg) scale(1.02);
   box-shadow: 
-    0 0 0 1px rgba(0, 0, 0, 0.1),
-    0 4px 8px rgba(0, 0, 0, 0.15),
-    0 8px 16px rgba(0, 0, 0, 0.15),
-    0 16px 32px rgba(0, 0, 0, 0.2),
-    0 24px 48px rgba(0, 0, 0, 0.25);
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  transform: translateY(-2px);
 }
 
 .sticky-note.dragging {
-  transform: rotate(2deg) scale(1.05);
   cursor: grabbing;
   z-index: 1000;
   box-shadow: 
-    0 0 0 1px rgba(0, 0, 0, 0.1),
-    0 8px 16px rgba(0, 0, 0, 0.2),
-    0 16px 32px rgba(0, 0, 0, 0.25),
-    0 32px 64px rgba(0, 0, 0, 0.3);
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  transform: rotate(2deg) scale(1.02);
 }
 
 .note-header {
-  height: 35px;
-  background: rgba(0, 0, 0, 0.05);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  height: 40px;
+  background: rgba(0, 0, 0, 0.03);
   display: flex;
   justify-content: flex-end;
-  padding: 5px;
+  align-items: center;
+  padding: 8px 12px;
   box-sizing: border-box;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  flex-shrink: 0;
 }
 
 .delete-btn {
-  width: 25px;
-  height: 25px;
+  width: 28px;
+  height: 28px;
   border: none;
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(0, 0, 0, 0.05);
   color: #666;
-  font-size: 20px;
-  line-height: 20px;
+  font-size: 18px;
+  line-height: 1;
   border-radius: 50%;
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 
-    inset 0 1px 2px rgba(255, 255, 255, 0.9),
-    0 1px 2px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: manipulation;
 }
 
 .delete-btn:hover {
-  background: rgba(255, 0, 0, 0.7);
+  background: #ef4444;
   color: white;
   transform: scale(1.1);
 }
 
 .delete-btn:active {
   transform: scale(0.95);
-  box-shadow: 
-    inset 0 1px 4px rgba(0, 0, 0, 0.3);
 }
 
 .note-content {
+  flex: 1;
   width: 100%;
-  height: calc(100% - 50px);
-  padding: 15px;
+  padding: 16px;
   border: none;
   background: transparent;
   resize: none;
-  font-family: 'Comic Sans MS', 'Marker Felt', cursive;
-  font-size: 16px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  font-size: 14px;
   line-height: 1.5;
   color: #333;
   outline: none;
   box-sizing: border-box;
+  min-height: 140px;
 }
 
 .note-content::placeholder {
-  color: rgba(0, 0, 0, 0.3);
+  color: rgba(0, 0, 0, 0.4);
   font-style: italic;
 }
 
-.note-footer {
-  height: 15px;
-  background: linear-gradient(
-    to bottom,
-    transparent 0%,
-    rgba(0, 0, 0, 0.05) 100%
-  );
+.highlighted-content {
+  padding: 16px;
+  flex: 1;
+  overflow-y: auto;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  line-height: 1.5;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  font-size: 14px;
+  color: #333;
+  min-height: 140px;
 }
 
 .sticky-note.search-match {
   animation: pulse-glow 2s ease-in-out infinite;
+  border: 2px solid #10b981;
 }
 
 @keyframes pulse-glow {
   0%, 100% {
     box-shadow: 
-      0 0 0 1px rgba(0, 0, 0, 0.1),
-      0 2px 4px rgba(0, 0, 0, 0.1),
-      0 4px 8px rgba(0, 0, 0, 0.1),
-      0 8px 16px rgba(0, 0, 0, 0.1),
-      0 16px 32px rgba(0, 0, 0, 0.15),
-      0 0 20px rgba(76, 175, 80, 0.3);
+      0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06),
+      0 0 0 0px rgba(16, 185, 129, 0.4);
   }
   50% {
     box-shadow: 
-      0 0 0 1px rgba(0, 0, 0, 0.1),
-      0 2px 4px rgba(0, 0, 0, 0.1),
-      0 4px 8px rgba(0, 0, 0, 0.1),
-      0 8px 16px rgba(0, 0, 0, 0.1),
-      0 16px 32px rgba(0, 0, 0, 0.15),
-      0 0 30px rgba(76, 175, 80, 0.5);
+      0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06),
+      0 0 0 4px rgba(16, 185, 129, 0.4);
   }
 }
 
-.highlighted-content {
-  padding: 15px;
-  height: calc(100% - 50px);
-  overflow-y: auto;
-  word-wrap: break-word;
-  white-space: pre-wrap;
-  line-height: 1.5;
+.search-highlight {
+  background-color: #fbbf24;
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-weight: 600;
+  color: #92400e;
 }
 
-.search-highlight {
-  background-color: #ffeb3b;
-  padding: 2px 0;
-  border-radius: 2px;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
-  font-weight: bold;
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  .sticky-note {
+    width: 200px;
+    min-height: 160px;
+    max-height: 300px;
+  }
+  
+  .note-header {
+    height: 36px;
+    padding: 6px 10px;
+  }
+  
+  .delete-btn {
+    width: 24px;
+    height: 24px;
+    font-size: 16px;
+  }
+  
+  .note-content,
+  .highlighted-content {
+    padding: 12px;
+    font-size: 13px;
+    min-height: 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sticky-note {
+    width: 180px;
+    min-height: 140px;
+  }
+  
+  .note-content,
+  .highlighted-content {
+    padding: 10px;
+    min-height: 80px;
+  }
 }

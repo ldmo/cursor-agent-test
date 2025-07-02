@@ -7,43 +7,64 @@ function StickyNote({ note, onUpdate, onUpdatePosition, onDelete, searchTerm }) 
   const noteRef = useRef(null);
 
   useEffect(() => {
-    const handleMouseMove = (e) => {
+    const handleMove = (e) => {
       if (!isDragging) return;
       
-      const newX = e.clientX - dragOffset.x;
-      const newY = e.clientY - dragOffset.y;
+      // Handle both mouse and touch events
+      const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+      const clientY = e.clientY || (e.touches && e.touches[0].clientY);
       
-      // Keep note within viewport
-      const maxX = window.innerWidth - 250;
-      const maxY = window.innerHeight - 250;
+      if (!clientX || !clientY) return;
+      
+      const newX = clientX - dragOffset.x;
+      const newY = clientY - dragOffset.y;
+      
+      // Keep note within viewport with mobile-friendly boundaries
+      const noteWidth = noteRef.current ? noteRef.current.offsetWidth : 250;
+      const noteHeight = noteRef.current ? noteRef.current.offsetHeight : 250;
+      const maxX = window.innerWidth - noteWidth - 10;
+      const maxY = window.innerHeight - noteHeight - 10;
       
       onUpdatePosition(
         note.id,
-        Math.max(0, Math.min(newX, maxX)),
-        Math.max(0, Math.min(newY, maxY))
+        Math.max(10, Math.min(newX, maxX)),
+        Math.max(10, Math.min(newY, maxY))
       );
     };
 
-    const handleMouseUp = () => {
+    const handleEnd = () => {
       setIsDragging(false);
     };
 
     if (isDragging) {
-      document.addEventListener('mousemove', handleMouseMove);
-      document.addEventListener('mouseup', handleMouseUp);
+      // Add both mouse and touch event listeners
+      document.addEventListener('mousemove', handleMove);
+      document.addEventListener('mouseup', handleEnd);
+      document.addEventListener('touchmove', handleMove, { passive: false });
+      document.addEventListener('touchend', handleEnd);
     }
 
     return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
+      document.removeEventListener('mousemove', handleMove);
+      document.removeEventListener('mouseup', handleEnd);
+      document.removeEventListener('touchmove', handleMove);
+      document.removeEventListener('touchend', handleEnd);
     };
   }, [isDragging, dragOffset, note.id, onUpdatePosition]);
 
-  const handleMouseDown = (e) => {
+  const handleStart = (e) => {
+    // Prevent default to avoid scrolling on mobile
+    if (e.type === 'touchstart') {
+      e.preventDefault();
+    }
+    
     const rect = noteRef.current.getBoundingClientRect();
+    const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+    const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+    
     setDragOffset({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top
+      x: clientX - rect.left,
+      y: clientY - rect.top
     });
     setIsDragging(true);
   };
@@ -73,10 +94,16 @@ function StickyNote({ note, onUpdate, onUpdatePosition, onDelete, searchTerm }) 
         left: `${note.x}px`,
         top: `${note.y}px`,
       }}
-      onMouseDown={handleMouseDown}
+      onMouseDown={handleStart}
+      onTouchStart={handleStart}
     >
       <div className="note-header">
-        <button className="delete-btn" onClick={() => onDelete(note.id)}>
+        <button 
+          className="delete-btn" 
+          onClick={() => onDelete(note.id)}
+          onTouchStart={(e) => e.stopPropagation()}
+          onMouseDown={(e) => e.stopPropagation()}
+        >
           ×
         </button>
       </div>
@@ -91,9 +118,9 @@ function StickyNote({ note, onUpdate, onUpdatePosition, onDelete, searchTerm }) 
           onChange={(e) => onUpdate(note.id, e.target.value)}
           placeholder="Write your note here..."
           onMouseDown={(e) => e.stopPropagation()}
+          onTouchStart={(e) => e.stopPropagation()}
         />
       )}
-      <div className="note-footer"></div>
     </div>
   );
 }
