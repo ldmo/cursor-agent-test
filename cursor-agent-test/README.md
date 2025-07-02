@@ -8,9 +8,11 @@ A beautiful, skeuomorphic sticky notes application built with React. Create, edi
 - **Edit Notes**: Click on any note to edit its content
 - **Drag & Drop**: Click and drag notes around the screen
 - **Delete Notes**: Click the × button to remove notes
+- **Search & Filter**: Real-time search to quickly find notes by content
 - **Persistent Storage**: All notes are saved in localStorage
 - **Skeuomorphic Design**: Beautiful, realistic sticky note appearance
 - **Random Colors**: Notes are created with random pastel colors
+- **Search Highlighting**: Matching text is highlighted when searching
 
 ## How to Run
 
@@ -32,6 +34,8 @@ A beautiful, skeuomorphic sticky notes application built with React. Create, edi
 - **Edit**: Click inside any note and start typing
 - **Move**: Click and drag the note header to move it around
 - **Delete**: Click the × button in the top right of each note
+- **Search**: Use the search bar at the top to filter notes by content
+- **Clear Search**: Click the × in the search bar to clear the search
 
 ## Technologies Used
 

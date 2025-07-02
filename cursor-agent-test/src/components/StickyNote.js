@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './StickyNote.css';
 
-function StickyNote({ note, onUpdate, onUpdatePosition, onDelete }) {
+function StickyNote({ note, onUpdate, onUpdatePosition, onDelete, searchTerm }) {
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const noteRef = useRef(null);
@@ -48,10 +48,26 @@ function StickyNote({ note, onUpdate, onUpdatePosition, onDelete }) {
     setIsDragging(true);
   };
 
+  // Highlight search term in the note content
+  const getHighlightedText = () => {
+    if (!searchTerm || !note.text) return note.text;
+    
+    const regex = new RegExp(`(${searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+    const parts = note.text.split(regex);
+    
+    return parts.map((part, index) => 
+      regex.test(part) ? (
+        <mark key={index} className="search-highlight">{part}</mark>
+      ) : (
+        part
+      )
+    );
+  };
+
   return (
     <div
       ref={noteRef}
-      className={`sticky-note ${isDragging ? 'dragging' : ''}`}
+      className={`sticky-note ${isDragging ? 'dragging' : ''} ${searchTerm && note.text.toLowerCase().includes(searchTerm.toLowerCase()) ? 'search-match' : ''}`}
       style={{
         backgroundColor: note.color,
         left: `${note.x}px`,
@@ -64,13 +80,19 @@ function StickyNote({ note, onUpdate, onUpdatePosition, onDelete }) {
           ×
         </button>
       </div>
-      <textarea
-        className="note-content"
-        value={note.text}
-        onChange={(e) => onUpdate(note.id, e.target.value)}
-        placeholder="Write your note here..."
-        onMouseDown={(e) => e.stopPropagation()}
-      />
+      {searchTerm ? (
+        <div className="note-content highlighted-content">
+          {getHighlightedText()}
+        </div>
+      ) : (
+        <textarea
+          className="note-content"
+          value={note.text}
+          onChange={(e) => onUpdate(note.id, e.target.value)}
+          placeholder="Write your note here..."
+          onMouseDown={(e) => e.stopPropagation()}
+        />
+      )}
       <div className="note-footer"></div>
     </div>
   );

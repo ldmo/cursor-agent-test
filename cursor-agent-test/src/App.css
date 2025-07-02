@@ -24,11 +24,17 @@
   pointer-events: none;
 }
 
+.app-header {
+  padding-top: 20px;
+  padding-bottom: 10px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, transparent 100%);
+}
+
 .app-title {
   text-align: center;
   color: #333;
   font-size: 2.5rem;
-  margin: 20px 0;
+  margin: 10px 0;
   text-shadow: 
     1px 1px 0 #fff,
     2px 2px 3px rgba(0, 0, 0, 0.1);
