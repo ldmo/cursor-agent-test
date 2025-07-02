@@ -1,0 +1,134 @@
+.game-controls {
+  background: white;
+  border-radius: 15px;
+  padding: 20px;
+  margin: 20px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  min-width: 300px;
+}
+
+.control-buttons {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 25px;
+  justify-content: center;
+}
+
+.reset-btn, .undo-btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.reset-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.reset-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+}
+
+.undo-btn {
+  background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+  color: #8b4513;
+}
+
+.undo-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(252, 182, 159, 0.4);
+}
+
+.undo-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.game-info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.game-status h3, .move-history h3 {
+  margin: 0 0 10px 0;
+  color: #2c3e50;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-bottom: 2px solid #ecf0f1;
+  padding-bottom: 5px;
+}
+
+.game-status p {
+  margin: 0;
+  font-size: 1rem;
+  color: #7f8c8d;
+  font-weight: 500;
+}
+
+.moves-list {
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid #ecf0f1;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.move-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 0;
+  border-bottom: 1px solid #f8f9fa;
+}
+
+.move-item:last-child {
+  border-bottom: none;
+}
+
+.move-number {
+  font-weight: bold;
+  color: #667eea;
+  min-width: 30px;
+}
+
+.move-notation {
+  font-family: 'Courier New', monospace;
+  background: #f8f9fa;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.moves-list p {
+  margin: 0;
+  color: #95a5a6;
+  font-style: italic;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .game-controls {
+    margin: 10px;
+    padding: 15px;
+    min-width: auto;
+  }
+  
+  .control-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .reset-btn, .undo-btn {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+}

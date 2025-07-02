@@ -1,0 +1,55 @@
+.chess-square {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.chess-square.light {
+  background-color: #f0d9b5;
+}
+
+.chess-square.dark {
+  background-color: #b58863;
+}
+
+.chess-square:hover {
+  transform: scale(1.05);
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.chess-square.selected {
+  background-color: #7fb069 !important;
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5);
+  transform: scale(1.1);
+}
+
+.chess-square.selected::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  right: 2px;
+  bottom: 2px;
+  border: 3px solid #ffffff;
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .chess-square {
+    width: 45px;
+    height: 45px;
+  }
+}
+
+@media (max-width: 480px) {
+  .chess-square {
+    width: 35px;
+    height: 35px;
+  }
+}
