@@ -1,6 +1,16 @@
-# React Hello World App
+# Sticky Notes App
 
-This is a React conversion of the original HTML page.
+A beautiful, skeuomorphic sticky notes application built with React. Create, edit, move, and delete notes that persist in localStorage.
+
+## Features
+
+- **Create Notes**: Click the "Add Note" button to create new sticky notes
+- **Edit Notes**: Click on any note to edit its content
+- **Drag & Drop**: Click and drag notes around the screen
+- **Delete Notes**: Click the × button to remove notes
+- **Persistent Storage**: All notes are saved in localStorage
+- **Skeuomorphic Design**: Beautiful, realistic sticky note appearance
+- **Random Colors**: Notes are created with random pastel colors
 
 ## How to Run
 
@@ -16,10 +26,16 @@ This is a React conversion of the original HTML page.
 
 3. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-## Project Structure
+## Usage
 
-- `src/App.js` - Main React component containing your content
-- `src/index.js` - Entry point that renders the App component
-- `public/index.html` - HTML template
-- `src/App.css` - Styles for the App component
-- `src/index.css` - Global styles
+- **Create**: Click the green "Add Note" button in the bottom right
+- **Edit**: Click inside any note and start typing
+- **Move**: Click and drag the note header to move it around
+- **Delete**: Click the × button in the top right of each note
+
+## Technologies Used
+
+- React (Hooks: useState, useEffect, useRef)
+- CSS3 (Gradients, Shadows, Animations)
+- LocalStorage API
+- Drag and Drop (Mouse Events)
