@@ -1,0 +1,13 @@
+.App {
+  text-align: center;
+  padding: 20px;
+}
+
+.App h1 {
+  color: #333;
+}
+
+.App p {
+  color: #666;
+  font-size: 18px;
+}
