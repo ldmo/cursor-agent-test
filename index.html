@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Research - Email Discovery Tool</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔍 Email Discovery Research Tool</h1>
+            <p>Security research tool for discovering publicly available company-wide email addresses</p>
+        </header>
+
+        <div class="search-section">
+            <div class="search-controls">
+                <input type="text" id="domainInput" placeholder="Enter domain (e.g., yahoo.com)" />
+                <button id="searchBtn">Search Email Lists</button>
+            </div>
+            <div class="loading" id="loadingIndicator" style="display: none;">
+                <div class="spinner"></div>
+                <span>Searching for email addresses...</span>
+            </div>
+        </div>
+
+        <div class="results-section" id="resultsSection" style="display: none;">
+            <h2>Discovered Email Addresses</h2>
+            <div class="results-stats" id="resultsStats"></div>
+            <div class="email-list" id="emailList"></div>
+        </div>
+
+        <footer>
+            <p><strong>Disclaimer:</strong> This tool is for educational and authorized security research purposes only. 
+            Ensure you have proper authorization before conducting any security research.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
